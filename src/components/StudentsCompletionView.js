@@ -5,8 +5,7 @@ import { requestResolveNext, resetRequestQueue, addProblem, addUsername } from '
 import { Button, Col, Form, Row } from 'react-bootstrap';
 
 function StudentsCompletionView(props) {
-  // const [usernames, setUsernames] = useState(new Set(['petersonguo', '16BitNarwhal', 'ChaSiu']));
-  const [problems, setProblems] = useState(new Set(['boolean', 'cco14p1']));
+  const [showDevtools, setShowDevtools] = useState(false);
   const dispatch = useDispatch();
   const requestQueue = useSelector(state => state.requestQueue.queue);
   const requestCount = useSelector(state => state.requestQueue.requestCount);
@@ -17,7 +16,6 @@ function StudentsCompletionView(props) {
 
   function handleAddProblem() {
     dispatch(addProblem(problemInputRef.current.value));
-    // setProblems(new Set([...problems, problemInputRef.current.value]));
     problemInputRef.current.value = '';
   }
   function handleAddUsername() {
@@ -32,7 +30,7 @@ function StudentsCompletionView(props) {
     <div>
       <Row>
           <Form.Label column sm="2">Add new problem</Form.Label>
-          <Col sm="7">
+          <Col sm="3">
             <Form.Control sm="7" ref={problemInputRef} />
           </Col>
           <Col sm="3">
@@ -41,7 +39,7 @@ function StudentsCompletionView(props) {
       </Row>
       <Row>
           <Form.Label column sm="2">Add new username</Form.Label>
-          <Col sm="7">
+          <Col sm="3">
             <Form.Control sm="7" ref={usernameInputRef} />
           </Col>
           <Col sm="3">
@@ -50,14 +48,22 @@ function StudentsCompletionView(props) {
       </Row>
       
 
-      <StudentsCompletionTable usernames={usernames} problems={problems}/>
-      <Button onClick={() => dispatch(requestResolveNext())}>Get Next</Button>
+      <StudentsCompletionTable usernames={usernames} />
+      <Button onClick={() => setShowDevtools(!showDevtools)}>{showDevtools? 'Hide Devtools' : 'Show Devtools'}</Button>
+      {
+        showDevtools && (
+          <div>
+            <Button onClick={() => dispatch(requestResolveNext())}>Get Next</Button>
       
-      <div>Request Count: {requestCount}</div>
-      <div>Last Call Time: {`${lastCallTime.getHours() % 12}:${lastCallTime.getMinutes()}:${lastCallTime.getSeconds()}`}</div>
-      <ul>
-        {[...requestQueue].map(item => <li key={item[0]}>{item[0]}</li>)}
-      </ul>
+            <div>Request Count: {requestCount}</div>
+            <div>Last Call Time: {`${lastCallTime.getHours() % 12}:${lastCallTime.getMinutes()}:${lastCallTime.getSeconds()}`}</div>
+            <ul>
+              {[...requestQueue].map(item => <li key={item[0]}>{item[0]}</li>)}
+            </ul>
+          </div>
+        )
+      }
+      
     </div>
     
   );
