@@ -104,9 +104,9 @@ export default function BestStudentSubmission(props) {
       </button> */}
       {status? (
         <a href={`https://dmoj.ca/problem/${problem}/submissions/${username}/`} target="_blank" rel="noreferrer">
-        <Button variant={statusColours[status] || 'secondary'}>{status}</Button></a>
+        <Button size="sm" variant={statusColours[status] || 'secondary'}>{status}</Button></a>
          ) : (
-          <Spinner role="status" />
+          <Spinner role="status" size="sm" />
         )}
       
       

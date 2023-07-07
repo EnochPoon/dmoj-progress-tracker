@@ -49,6 +49,8 @@ function StudentsCompletionView(props) {
       
 
       <StudentsCompletionTable usernames={usernames} />
+
+      
       <Button onClick={() => setShowDevtools(!showDevtools)}>{showDevtools? 'Hide Devtools' : 'Show Devtools'}</Button>
       {
         showDevtools && (

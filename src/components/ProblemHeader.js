@@ -39,11 +39,16 @@ export default function ProblemHeader(props) {
   }
   return (
     <th>
-      <a href={`https://dmoj.ca/problem/${problem}`} target="_blank" rel="noreferrer">{problem}</a> <br />
-      {problemName}
+      <div>
+      <div>
+        <div><a href={`https://dmoj.ca/problem/${problem}`} target="_blank" rel="noreferrer">{problem}</a></div>
+        {problemName}
+      </div>
+      
       <Button variant="danger" size="sm" onClick={attemptDelete}>
         <FontAwesomeIcon icon={faTrashAlt} />
       </Button>
+      </div>
     </th>
   )
 }
